@@ -1,11 +1,7 @@
 ﻿using DemoMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DemoMVC.Controllers
 {
@@ -26,6 +22,13 @@ namespace DemoMVC.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult Privacy2()
+        {
+
+            return View();
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
