@@ -14,10 +14,14 @@ namespace DemoMVC.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        [HttpPost]
+        [HttpGet]
+        public IActionResult Index(int id)
         {
+            ViewData["Title"] = "Chuck Norris";
             return View();
         }
+
 
         public IActionResult Privacy()
         {
