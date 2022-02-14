@@ -1,5 +1,7 @@
+using DemoMVC.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,10 +22,12 @@ namespace DemoMVC
         {
             //services.AddDbContext<ApplicationDbContext>();
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //{
-            //    options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
-            //});
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
+            });
+
+            //services.AddScoped<Modele>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }

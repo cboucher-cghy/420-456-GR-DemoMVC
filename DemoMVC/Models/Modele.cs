@@ -6,6 +6,8 @@
 
         public Marque Marque { get; set; }
 
+        public int MarqueId { get; set; }
+
         public string Nom { get; set; }
     }
 }
