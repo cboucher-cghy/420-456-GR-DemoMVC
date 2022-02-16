@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220216181931_InitialMigration")]
+    [Migration("20220216184900_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,23 +67,6 @@ namespace DemoMVC.Migrations
                     b.ToTable("Proprietaires");
                 });
 
-            modelBuilder.Entity("DemoMVC.Models.ProprietaireVoiture", b =>
-                {
-                    b.Property<int>("ProprietaireId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProprietaireID");
-
-                    b.Property<int>("VoitureId")
-                        .HasColumnType("int")
-                        .HasColumnName("VoitureID");
-
-                    b.HasKey("ProprietaireId", "VoitureId");
-
-                    b.HasIndex("VoitureId");
-
-                    b.ToTable("PersonnesVoitures");
-                });
-
             modelBuilder.Entity("DemoMVC.Models.Voiture", b =>
                 {
                     b.Property<int>("Id")
@@ -120,25 +103,6 @@ namespace DemoMVC.Migrations
                         .IsRequired();
 
                     b.Navigation("Marque");
-                });
-
-            modelBuilder.Entity("DemoMVC.Models.ProprietaireVoiture", b =>
-                {
-                    b.HasOne("DemoMVC.Models.Personne", "Proprietaire")
-                        .WithMany()
-                        .HasForeignKey("ProprietaireId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DemoMVC.Models.Voiture", "Voiture")
-                        .WithMany()
-                        .HasForeignKey("VoitureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Proprietaire");
-
-                    b.Navigation("Voiture");
                 });
 
             modelBuilder.Entity("PersonneVoiture", b =>

@@ -64,30 +64,6 @@ namespace DemoMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonnesVoitures",
-                columns: table => new
-                {
-                    ProprietaireID = table.Column<int>(type: "int", nullable: false),
-                    VoitureID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonnesVoitures", x => new { x.ProprietaireID, x.VoitureID });
-                    table.ForeignKey(
-                        name: "FK_PersonnesVoitures_Proprietaires_ProprietaireID",
-                        column: x => x.ProprietaireID,
-                        principalTable: "Proprietaires",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PersonnesVoitures_Voitures_VoitureID",
-                        column: x => x.VoitureID,
-                        principalTable: "Voitures",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PersonneVoiture",
                 columns: table => new
                 {
@@ -117,11 +93,6 @@ namespace DemoMVC.Migrations
                 column: "MarqueId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonnesVoitures_VoitureID",
-                table: "PersonnesVoitures",
-                column: "VoitureID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PersonneVoiture_VoituresId",
                 table: "PersonneVoiture",
                 column: "VoituresId");
@@ -131,9 +102,6 @@ namespace DemoMVC.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Modeles");
-
-            migrationBuilder.DropTable(
-                name: "PersonnesVoitures");
 
             migrationBuilder.DropTable(
                 name: "PersonneVoiture");

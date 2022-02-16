@@ -12,18 +12,11 @@ namespace DemoMVC.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-                .Entity<ProprietaireVoiture>()
-                .Property(pv => pv.ProprietaireId).HasColumnName("ProprietaireID");
-
-            modelBuilder
-                .Entity<ProprietaireVoiture>()
-                .Property(pv => pv.VoitureId).HasColumnName("VoitureID");
-
-            modelBuilder
-                .Entity<ProprietaireVoiture>()
-                .ToTable("PersonnesVoitures")
-                .HasKey(x => new { x.ProprietaireId, x.VoitureId });
+            // Pour renommer la table de liaisons... 
+            modelBuilder.Entity<Personne>()
+                .HasMany(p => p.Voitures)
+                .WithMany(v => v.Proprietaires)
+                .UsingEntity(join => join.ToTable("PersonneVoiture"));
 
             base.OnModelCreating(modelBuilder);
         }
@@ -34,6 +27,5 @@ namespace DemoMVC.Data
         public DbSet<Voiture> Voitures { get; set; }
         public DbSet<Personne> Proprietaires { get; set; }
 
-        public DbSet<ProprietaireVoiture> ProprietairesVoitures { get; set; }
     }
 }
