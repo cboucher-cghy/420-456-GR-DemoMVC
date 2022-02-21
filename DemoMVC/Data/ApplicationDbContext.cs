@@ -13,11 +13,15 @@ namespace DemoMVC.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Pour renommer la table de liaisons... 
-            modelBuilder.Entity<Personne>()
-                .HasMany(p => p.Voitures)
-                .WithMany(v => v.Proprietaires)
-                .UsingEntity(join => join.ToTable("PersonneVoiture"));
+            //modelBuilder.Entity<Personne>()
+            //    .HasMany(p => p.Voiture)
+            //    .WithMany(v => v.Proprietaires)
+            //    .UsingEntity(join => join.ToTable("PersonneVoiture"));
 
+            modelBuilder.Entity<Personne>().HasData(new Personne()
+            {
+                Id = 1
+            });
             base.OnModelCreating(modelBuilder);
         }
 
