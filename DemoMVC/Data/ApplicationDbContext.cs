@@ -30,6 +30,7 @@ namespace DemoMVC.Data
 
         public DbSet<Voiture> Voitures { get; set; }
         public DbSet<Personne> Proprietaires { get; set; }
+        public DbSet<DemoMVC.Models.Client> Client { get; set; }
 
     }
 }

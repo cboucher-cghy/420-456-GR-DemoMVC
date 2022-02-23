@@ -24,6 +24,7 @@ namespace DemoMVC
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
+                //options.UseLazyLoadingProxies();
                 options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
             });
 

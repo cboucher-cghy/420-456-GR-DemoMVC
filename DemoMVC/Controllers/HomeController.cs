@@ -21,10 +21,12 @@ namespace DemoMVC.Controllers
         [HttpGet]
         public IActionResult Index(int id)
         {
-            List<Modele> modelesFromDB = _context.Modeles.Include(x => x.Marque).ToList(); //Where(modele => modele.Nom.StartsWith("H"))
-            modelesFromDB.ForEach(x => x.Nom = "Hyunday");
-            modelesFromDB.Add(new Modele() { Nom = "BMW" });
-            _context.Modeles.Add(new Modele() { Nom = "BMW2", MarqueId = 1 });
+            List<Modele> modelesFromDB = _context.Modeles.Include(x => x.Marque)
+                //.Where(m => m.Id > 2)
+                .ToList(); //Where(modele => modele.Nom.StartsWith("H"))
+            //modelesFromDB.ForEach(x => x.Nom = "Hyunday");
+            //modelesFromDB.Add(new Modele() { Nom = "BMW" });
+            //_context.Modeles.Add(new Modele() { Nom = "BMW2", MarqueId = 1 });
             _context.SaveChanges();
 
             ViewData["Title"] = "Chuck Norris";
