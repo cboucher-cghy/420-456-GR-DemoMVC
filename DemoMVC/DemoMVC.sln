@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoMVC", "DemoMVC.csproj", "{15CF1E6F-16D1-44FB-8245-DD270E6C245A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoMVC", "DemoMVC.csproj", "{15CF1E6F-16D1-44FB-8245-DD270E6C245A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seeder", "..\Seeder\Seeder.csproj", "{03D08086-FE33-479D-9C63-C2B7881D952E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{15CF1E6F-16D1-44FB-8245-DD270E6C245A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15CF1E6F-16D1-44FB-8245-DD270E6C245A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15CF1E6F-16D1-44FB-8245-DD270E6C245A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03D08086-FE33-479D-9C63-C2B7881D952E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D08086-FE33-479D-9C63-C2B7881D952E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D08086-FE33-479D-9C63-C2B7881D952E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D08086-FE33-479D-9C63-C2B7881D952E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,13 @@
+﻿@model List<string>
+
+<h2>Marques de véhicules</h2>
+
+<ul>
+    @{
+        int counter = 1;
+    }
+    @foreach (string voiture in Model)
+    {
+        <li><span>@(counter++)</span> - @voiture</li>
+    }
+</ul>

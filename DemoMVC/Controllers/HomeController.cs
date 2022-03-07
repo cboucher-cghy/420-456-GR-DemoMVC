@@ -1,31 +1,49 @@
-﻿using DemoMVC.Models;
+﻿using DemoMVC.Data;
+using DemoMVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DemoMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        [HttpPost]
+        [HttpGet]
+        public IActionResult Index(int id)
         {
+            List<Modele> modelesFromDB = _context.Modeles.Include(x => x.Marque)
+                //.Where(m => m.Id > 2)
+                .ToList(); //Where(modele => modele.Nom.StartsWith("H"))
+            //modelesFromDB.ForEach(x => x.Nom = "Hyunday");
+            //modelesFromDB.Add(new Modele() { Nom = "BMW" });
+            //_context.Modeles.Add(new Modele() { Nom = "BMW2", MarqueId = 1 });
+            _context.SaveChanges();
+
+            ViewData["Title"] = "Chuck Norris";
             return View();
         }
+
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult Privacy2()
+        {
+
+            return View();
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

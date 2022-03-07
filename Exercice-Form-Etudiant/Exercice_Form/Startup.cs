@@ -1,12 +1,13 @@
-using DemoMVC.Data;
+using Exercice_Form.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-namespace DemoMVC
+namespace Exercice_Form
 {
     public class Startup
     {
@@ -20,17 +21,10 @@ namespace DemoMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationDbContext>();
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                //options.UseLazyLoadingProxies();
-                options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
-            });
-
-            //services.AddScoped<Modele>();
-
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddDbContext<ExeDbContext>(options => options
+            .UseLoggerFactory(LoggerFactory.Create(builder => { builder.AddConsole(); }))
+            .UseSqlServer(Configuration.GetConnectionString("DbContext_MSSQL")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
