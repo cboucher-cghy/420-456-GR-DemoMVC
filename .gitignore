@@ -603,7 +603,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+#dist
 
 # Gatsby files
 .cache/
@@ -660,7 +660,7 @@ test/
 ### Vuejs ###
 # Recommended template: Node.gitignore
 
-dist/
+#dist/
 npm-debug.log
 yarn-error.log
 
