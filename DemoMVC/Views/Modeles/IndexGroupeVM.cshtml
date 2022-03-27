@@ -1,0 +1,40 @@
+﻿@model ModeleIndexGroupeVM
+
+@{
+    ViewData["Title"] = "Modeles avec Grouping";
+}
+
+<h2>Modèles de véhicules</h2>
+
+<div>
+    <h3>Liste des modèles</h3>
+    <ul>
+        @foreach (Modele modele in Model.Modeles)
+        {
+            <li>@modele.Nom</li>
+        }
+    </ul>
+    <br />
+    <h3>Liste des modèles triés par nom</h3>
+    <ul>
+        @foreach (Modele modele in Model.ModelesTriParNom)
+        {
+            <li>@modele.Nom</li>
+        }
+    </ul>
+    <br />
+
+    <h3>Liste des modèles groupés par marque</h3>
+
+    @foreach (IGrouping<Marque, Modele> groupe in Model.ModelesGroupe)
+    {
+        <b>@groupe.Key.Nom</b>
+        <ul>
+            @foreach (Modele modele in groupe)
+            {
+                <li>@modele.Nom</li>
+            }
+        </ul>
+    }
+    <br />
+</div>

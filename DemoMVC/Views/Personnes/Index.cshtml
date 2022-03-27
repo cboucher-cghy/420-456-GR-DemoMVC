@@ -1,0 +1,30 @@
+﻿@model PersonneIndexVM
+
+@{
+    ViewData["Title"] = "Choisir un propriétaire";
+}
+
+<div>
+    <h1>Sélection du propriétaire</h1>
+    @if (Model.Proprietaires.Count == 0)
+    {
+        <p>Aucun propriétaire n'existe!</p>
+    }
+    else
+    {
+        <form asp-action="Index">
+            <div class="row">
+                <div class="form-group">
+                    <span asp-validation-for="ProprietaireId" class="text-danger p-3"></span>
+                    <div class="form-group form-inline">
+                        <label asp-for="ProprietaireId" class="control-label p-3"></label>
+                        <select asp-for="ProprietaireId" asp-items="@Model.Proprietaires" onchange="this.form.submit()" class="form-control">
+                            <option value="">Sélectionner un véhicule</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @* TODO: Ajouter de façon dynamique les autos avec une vue partielle ici au lieu de rediriger vers une autre page. *@
+    }
+</div>

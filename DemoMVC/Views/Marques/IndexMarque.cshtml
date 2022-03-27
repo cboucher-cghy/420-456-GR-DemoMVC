@@ -1,0 +1,28 @@
+﻿@model List<Marque>
+
+@{
+    ViewData["Title"] = "Marques";
+}
+
+<h2>Marques de véhicules</h2>
+
+<ul>
+    @{
+        int counter = 1;
+    }
+    @foreach (Marque voiture in Model)
+    {
+        <div id="@voiture.Id">
+            <p>
+                <span>@(counter++)</span> - @voiture
+            </p>
+            <b>Modèles associés</b>
+            <ul>
+                @foreach (Modele m in voiture.Modeles)
+                {
+                    <li>@m.Nom</li>
+                }
+            </ul>
+        </div>
+    }
+</ul>

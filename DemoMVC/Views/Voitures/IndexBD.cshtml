@@ -1,0 +1,24 @@
+﻿@model List<VoitureVM>
+
+@{
+    ViewData["Title"] = "Voitures BD";
+}
+
+
+<div class="text-center">
+
+
+    <h1 class="display-4">Voiture de l'année</h1>
+    <div>
+        Nombre de voiture: @Model.Count
+        <ul>
+            @*Ou encore, à la bonne vieille façon avec un foreach*@
+            @foreach (VoitureVM v in Model)
+            {
+                <partial name="_VoitureDetailsPartial" model="v" />
+            }
+
+        </ul>
+    </div>
+</div>
+

@@ -8,6 +8,8 @@ namespace DemoMVC.Models
 
         public string Nom { get; set; }
 
+        public string? Acronyme { get; set; }
+
         public List<Modele> Modeles { get; set; }
     }
 }

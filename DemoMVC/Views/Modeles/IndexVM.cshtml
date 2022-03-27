@@ -1,0 +1,26 @@
+﻿@model List<ModeleIndexVM>
+
+@{
+    ViewData["Title"] = "Modele avec VM";
+}
+
+<h2>Modèles de véhicules</h2>
+
+<div>
+    <h3>Liste des modèles avec sa marque</h3>
+    @if (Model.Count > 0)
+    {
+
+        <ul>
+            @foreach (ModeleIndexVM modele in Model)
+            {
+                <li> @modele.NomModele - @modele.NomMarque</li>
+            }
+        </ul>
+        <br />
+    }
+    else
+    {
+        <p>Aucun résultat</p>
+    }
+</div>

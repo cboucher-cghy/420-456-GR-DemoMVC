@@ -1,0 +1,63 @@
+﻿@model PersonneAchatVM
+
+@{
+    ViewData["Title"] = "Achat d'une voiture";
+}
+
+<div>
+    <h1>Achat d'une voiture</h1>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @if (Model.VoituresDisponibles.Count == 0)
+    {
+        <p>Aucune voitures de disponible!</p>
+    }
+    else
+    {
+        <form asp-action="AchatVoiturePourPersonne">
+            <input asp-for="ProprietaireId" type="hidden" />
+
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="ArgentDisponible" class="control-label"></label>
+                    <p class="font-weight-bold">
+                        @Html.DisplayFor(m => m.ArgentDisponible)
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label asp-for="VoitureChoisieId" class="control-label"></label>
+                        <select asp-for="VoitureChoisieId" asp-items="@Model.VoituresDisponibles" class="form-control">
+                            <option value="" disabled="disabled">Sélectionner un véhicule</option>
+                        </select>
+                        <span asp-validation-for="VoitureChoisieId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="DatePrisePossession" class="control-label"></label>
+                    <input asp-for="DatePrisePossession" class="form-control" />
+                    <span asp-validation-for="DatePrisePossession" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group m-auto">
+                    <input type="submit" value="Acheter" class="btn btn-primary btn-lg" />
+                </div>
+            </div>
+        </form>
+    }
+</div>
+
+<div>
+    <a asp-action="Index">Choisir un autre propriétaire</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DemoMVC</title>
+    <title>DemoMVC - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -21,8 +21,42 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropDownMarques" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Marques
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropDownMarques">
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Marques" asp-action="Index">Index</a>
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Marques" asp-action="IndexMarques">Index avec objet</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropDownModeles" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Modèles
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropDownModeles">
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Modeles" asp-action="Index">Index</a>
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Modeles" asp-action="IndexVM">IndexVM</a>
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Modeles" asp-action="IndexGroupeVM">IndexGroupeVM</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropDownVoitures" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Voitures
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropDownVoitures">
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Voitures" asp-action="Index">Index</a>
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Voitures" asp-action="IndexBD">Index avec accès BD</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropDownVoitures" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Personnes
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropDownVoitures">
+                                <a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Personnes" asp-action="Index">Index</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -30,6 +64,10 @@
         </nav>
     </header>
     <div class="container">
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-info" role="alert">@TempData["Message"]</div>
+        }
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

@@ -1,10 +1,12 @@
-﻿namespace DemoMVC.ViewModels
+﻿using System.ComponentModel;
+
+namespace DemoMVC.ViewModels
 {
     public class VoitureVM
     {
         public int Id { get; set; }
 
-
-        public double Prix { get; set; }
+        [DisplayName("Prix de vente suggéré")]
+        public double PrixDeVente { get; set; }
     }
 }

@@ -1,20 +1,23 @@
 ﻿@model List<VoitureVM>
 
+@{
+    ViewData["Title"] = "Voitures";
+}
+
 
 <div class="text-center">
 
-
-    <h1 class="display-4">Voiture de l'année</h1>
+    <h1 class="display-4">Voitures</h1>
     <div>
-        Nombre de voiture: @Model.Count
-        <ul>
+        Nombre de voitures: @Model.Count
+        <ul class="list-group">
 
             @foreach (VoitureVM v in Model)
             {
                 @*<li>
                         <span>@v.Id - @v.Prix  </span>
                     </li>*@
-                @Html.Partial("_VoitureDetailsPartial", v)
+                <partial name="_VoitureDetailsPartial" model="v" />
             }
         </ul>
     </div>
