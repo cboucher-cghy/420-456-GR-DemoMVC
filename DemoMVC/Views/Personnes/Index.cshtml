@@ -19,12 +19,11 @@
                     <div class="form-group form-inline">
                         <label asp-for="ProprietaireId" class="control-label p-3"></label>
                         <select asp-for="ProprietaireId" asp-items="@Model.Proprietaires" onchange="this.form.submit()" class="form-control">
-                            <option value="">Sélectionner un véhicule</option>
+                            <option value="">Sélectionner un propriétaire</option>
                         </select>
                     </div>
                 </div>
             </div>
         </form>
-        @* TODO: Ajouter de façon dynamique les autos avec une vue partielle ici au lieu de rediriger vers une autre page. *@
     }
 </div>

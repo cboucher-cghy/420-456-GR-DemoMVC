@@ -1,0 +1,104 @@
+﻿@model PersonneIndexVMAJAX
+
+@{
+    ViewData["Title"] = "Choisir un propriétaire";
+}
+
+<div>
+    <h1>Sélection du propriétaire avec AJAX</h1>
+    <div id="message"></div>
+    @if (Model.Proprietaires.Count == 0)
+    {
+        <p>Aucun propriétaire n'existe!</p>
+    }
+    else
+    {
+        <div id="formDiv">
+            <partial name="_PersonnesFormPartial" model="@Model" />
+        </div>
+    }
+</div>
+
+<div id="nextSteps"></div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+        function fetchCarsPartialView(ev) {
+
+            if (ev.target.value == "") {
+                return;
+            }
+
+            // ev => événement OnChange
+            // ev.target => Qui a généré l'événement? La balise <select>
+            // ev.target.value => attribut html "value" => donc le ID de la sélection
+            fetch('/Personnes/Details/' + ev.target.value, {
+                method: 'GET',
+            }).then(function (response) {
+                if (!response.ok) {
+                    throw Error(response);
+                }
+
+                return response.json();
+            }).then(function (json) {
+                document.querySelector("label[for='ArgentDisponible']").nextElementSibling.innerText = json.argentDisponible.toFixed(2) + " $";
+                document.querySelector("#VoitureChoisieId").innerHTML = ParseJSONSelectList(json.voituresDisponibles);
+            }).catch(function (error) {
+                document.querySelector("#message").innerHTML = "<p>Echec: " + error + "</p>";
+                console.warn(error);
+            });
+        }
+
+        function submitPOST(ev) {
+
+            ev.preventDefault();
+            var form = ev.target.closest("form");
+            var data = new FormData(form);
+
+            fetch('/Personnes/AchatVoitureAJAX/', {
+                method: 'POST',
+                body: data
+            }).then(function (response) {
+
+                if (!response.ok) {
+                    throw Error(response);
+                }
+
+                return response.text();
+            }).then(function (html) {
+
+                document.querySelector("#formDiv").innerHTML = html;
+
+                let submit = document.querySelector('#formAchat');
+                submit.addEventListener("submit", submitPOST);
+
+                let proprioSelect = document.querySelector("#ProprietaireId");
+                proprioSelect.addEventListener("change", fetchCarsPartialView);
+            }).catch(function (error) {
+                console.warn(error);
+                document.querySelector("#message").innerHTML = "<p>Échec: " + error + "</p>";
+            });
+        }
+
+
+        function ParseJSONSelectList(JSONData) {
+            var html = '';
+            var len = JSONData.length;
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + JSONData[i].value + (JSONData[i].selected == true ? 'Selected' : '') + '">' + JSONData[i].text + '</option>';
+            }
+            return html;
+        }
+
+        let proprioSelect = document.querySelector("#ProprietaireId");
+        proprioSelect.addEventListener("change", fetchCarsPartialView);
+
+        let submit = document.querySelector('#formAchat');
+        submit.addEventListener("submit", submitPOST);
+    </script>
+}

@@ -32,6 +32,80 @@ namespace DemoMVC.Controllers
             return View(vm);
         }
 
+        public IActionResult IndexAJAX()
+        {
+            PersonneIndexVMAJAX vm = new();
+            vm.Proprietaires = _context.Proprietaires
+                 .Where(p => p.Voitures.Count < 3)
+                 .Select(p => new SelectListItem()
+                 {
+                     Text = p.NomComplet,
+                     Value = p.Id.ToString()
+                 })
+                 .ToList();
+
+            vm.VoituresDisponibles = RecupererVoituresListItemsDisponibles();
+
+            return View(vm);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var proprio = _context.Proprietaires.FirstOrDefault(p => p.Id == id);
+
+            if (proprio == null)
+            {
+                return NotFound();
+            }
+
+            PersonneIndexVMAJAX vm = new();
+            vm.ProprietaireId = id;
+            vm.VoituresDisponibles = RecupererVoituresListItemsDisponiblesPourCettePersonne(id);
+            vm.ArgentDisponible = proprio.Argent;
+
+            return Json(vm);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AchatVoitureAJAX(PersonneIndexVMAJAX vm)
+        {
+            vm.Proprietaires = _context.Proprietaires
+                 .Where(p => p.Voitures.Count < 3)
+                 .Select(p => new SelectListItem()
+                 {
+                     Text = p.NomComplet,
+                     Value = p.Id.ToString()
+                 })
+                 .ToList();
+
+
+            var proprio = _context.Proprietaires.FirstOrDefault(p => p.Id == vm.ProprietaireId);
+            vm.ArgentDisponible = proprio.Argent;
+            if (ModelState.IsValid)
+            {
+                var voiture = _context.Modeles.FirstOrDefault(v => v.Id == vm.VoitureChoisieId);
+                proprio.Voitures.Add(voiture);
+                proprio.Argent -= voiture.PDSF;
+                _context.SaveChanges();
+
+                TempData["Message"] = "Achat effectué avec succès!";
+
+                vm = new();
+                vm.VoituresDisponibles = RecupererVoituresListItemsDisponibles();
+                vm.ArgentDisponible = proprio.Argent;
+                return PartialView("_PersonnesFormPartial", vm);
+            }
+
+            // Réinitialiser la liste des voitures disponibles lors du réaffichage de la page.
+            vm.VoituresDisponibles = RecupererVoituresListItemsDisponiblesPourCettePersonne(vm.ProprietaireId);
+
+            return PartialView("_PersonnesFormPartial", vm);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index(PersonneIndexVM vm)
@@ -68,7 +142,6 @@ namespace DemoMVC.Controllers
 
             return View(vm);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,5 +191,16 @@ namespace DemoMVC.Controllers
                  .ToList();
         }
 
+        private List<SelectListItem> RecupererVoituresListItemsDisponibles()
+        {
+            return _context.Modeles
+                    .Include(m => m.Proprietaires)
+                 .Select(v => new SelectListItem()
+                 {
+                     Text = v.Marque.Nom + " " + v.Nom + " (" + v.PDSF.ToString("C2") + ")",
+                     Value = v.Id.ToString()
+                 })
+                 .ToList();
+        }
     }
 }

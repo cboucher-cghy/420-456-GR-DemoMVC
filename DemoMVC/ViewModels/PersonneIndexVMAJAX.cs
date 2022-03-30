@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace DemoMVC.ViewModels
 {
-    public class PersonneAchatVM : IValidatableObject
+    public class PersonneIndexVMAJAX : IValidatableObject
     {
         public List<SelectListItem> Proprietaires { get; set; }
 
@@ -29,7 +29,6 @@ namespace DemoMVC.ViewModels
         [DisplayName("Choisir un véhicule à acheter")]
         [Required(ErrorMessage = "Il faut choisir un véhicule")]
         public int VoitureChoisieId { get; set; }
-
 
         [DisplayName("Date de prise de possession")]
         [DataType(DataType.Date)]
@@ -58,5 +57,28 @@ namespace DemoMVC.ViewModels
                 yield return new ValidationResult($"Ce propriétaire n'a pas assez d'argent pour acheter cette voiture.");
             }
         }
+
+        // Fait le même travail de validation que les deux Data Annotations
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    var context = (ApplicationDbContext)validationContext
+        //                .GetService(typeof(ApplicationDbContext));
+
+        //    if (ProprietaireId != null)
+        //    {
+        //        var proprio = context.Proprietaires.Include(p => p.Voitures).FirstOrDefault(p => p.Id == ProprietaireId);
+        //        if (proprio == null)
+        //        {
+        //            yield return new ValidationResult($"Cet utilisateur n'existe pas.");
+        //        }
+        //        else
+        //        {
+        //            if (proprio.Voitures.Count >= 3)
+        //            {
+        //                yield return new ValidationResult($"Ce propriétaire possède déjà 3 voitures, ce qui est la limite permise.");
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
