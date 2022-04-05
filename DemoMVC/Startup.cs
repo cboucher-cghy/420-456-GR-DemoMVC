@@ -21,13 +21,17 @@ namespace DemoMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                //options.UseLazyLoadingProxies();
-                options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
-            });
+                {
+                    //options.UseLazyLoadingProxies();
+                    options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
+                });
 
+            // Appel à des extensions pour l'ajout des services nécessaires.
+            services.AddCustomMVC().AddCustomIdentity();
 
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //   .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +40,9 @@ namespace DemoMVC
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Pour vérifier si la BD est à jour en développement.
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -43,19 +50,23 @@ namespace DemoMVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
-            app.UseRouting();
+            // Appel à une extension pour l'utilisation des middlewares.
+            app.UseCustomMVC();
 
-            app.UseAuthorization();
+            //app.UseHttpsRedirection();
+            //app.UseStaticFiles();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+            //app.UseRouting();
+
+            //app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }

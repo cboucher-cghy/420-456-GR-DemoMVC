@@ -1,0 +1,12 @@
+﻿Si le Scaffolding ne fonctionne pas, il est toujours possible de le faire manuellement avec les commandes suivantes (depuis le package manager console)
+
+dotnet tool install -g dotnet-aspnet-codegenerator --version 5.0
+dotnet aspnet-codegenerator identity -dc DemoMVC.Data.ApplicationDbContext            <-- Assurez-vous d'avoir le bon namespace associé au DbContext.
+
+
+
+Ne pas oublier d'ajouter ceci dans le DbContext s'il n'est pas présent
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+  base.OnModelCreating(modelBuilder);
+}

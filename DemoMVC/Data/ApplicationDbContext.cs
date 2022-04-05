@@ -1,10 +1,11 @@
 ﻿using DemoMVC.Data.Configuration;
 using DemoMVC.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DemoMVC.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext//DbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -13,6 +14,9 @@ namespace DemoMVC.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Nécessaire avec Identity
+            base.OnModelCreating(modelBuilder);
+
             // Many-to-many Compétitions/Étudiants
             // https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key#many-to-many
             // Tiré de l'exemple: 
