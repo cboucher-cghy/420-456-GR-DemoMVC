@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace DemoMVC_Identity.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -36,6 +37,7 @@ namespace DemoMVC_Identity.Controllers
             _roleManager = rm;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
