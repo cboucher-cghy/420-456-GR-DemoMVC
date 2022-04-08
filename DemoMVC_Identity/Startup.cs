@@ -1,3 +1,4 @@
+using DemoMVC_Identity.Claims;
 using DemoMVC_Identity.Data;
 using DemoMVC_Identity.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -84,6 +85,9 @@ namespace DemoMVC_Identity
             //        .RequireAuthenticatedUser()
             //        .Build();
             //});
+
+            // Pour des Claims personnalisés
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
