@@ -1,12 +1,15 @@
 using DemoMVC_Identity.Data;
 using DemoMVC_Identity.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace DemoMVC_Identity
 {
@@ -46,6 +49,7 @@ namespace DemoMVC_Identity
                     .AddSignInManager()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // Options en lien avec Identity
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings
@@ -53,8 +57,23 @@ namespace DemoMVC_Identity
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireLowercase = false;
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.User.RequireUniqueEmail = true;
+                options.Lockout.MaxFailedAccessAttempts = 3; // Mouhahaha
             });
 
+            // Options de configuration pour les cookies lors de l'authentification
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+                options.LoginPath = new PathString("/Account/Login");
+                options.Cookie.Name = "Cookie";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(720);
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+            });
 
             services.AddControllersWithViews();
 
