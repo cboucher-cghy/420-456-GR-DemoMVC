@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DemoMVC_Identity.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DemoMVC_Identity.Data
 {
@@ -12,5 +10,17 @@ namespace DemoMVC_Identity.Data
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Pour création de la BD en TPT
+            builder.Entity<Enseignant>().ToTable(nameof(Enseignants));
+            builder.Entity<Etudiant>().ToTable(nameof(Etudiants));
+        }
+
+        public DbSet<Enseignant> Enseignants { get; set; }
+        public DbSet<Etudiant> Etudiants { get; set; }
     }
 }
