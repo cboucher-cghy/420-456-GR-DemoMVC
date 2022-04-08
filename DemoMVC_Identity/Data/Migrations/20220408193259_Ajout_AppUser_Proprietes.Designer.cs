@@ -4,14 +4,16 @@ using DemoMVC_Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DemoMVC_Identity.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220408193259_Ajout_AppUser_Proprietes")]
+    partial class Ajout_AppUser_Proprietes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,7 +107,7 @@ namespace DemoMVC_Identity.Data.Migrations
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "976df4bb-c722-4219-a087-06c175e2d92e",
                             TwoFactorEnabled = false,
-                            UserName = "admin@test.com"
+                            UserName = "admin"
                         });
                 });
 

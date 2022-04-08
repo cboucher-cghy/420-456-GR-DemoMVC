@@ -46,13 +46,17 @@ namespace DemoMVC_Identity.Data
                 EmailConfirmed = true,
                 FirstName = "Admin",
                 LastName = "Du Site",
-                UserName = "admin",
-                NormalizedUserName = "admin".ToUpper()
+                UserName = "admin@test.com",
+                NormalizedUserName = "admin".ToUpper(),
+                ConcurrencyStamp = "9afea881-1d7c-462a-aa43-9cc273731673",
+                SecurityStamp = "976df4bb-c722-4219-a087-06c175e2d92e"
             };
 
             // Créer le mot de passe
-            PasswordHasher<ApplicationUser> ph = new PasswordHasher<ApplicationUser>();
-            appUser.PasswordHash = ph.HashPassword(appUser, "Jaimelaprog1!");
+            //PasswordHasher<ApplicationUser> ph = new();
+            //appUser.PasswordHash = ph.HashPassword(null, "Jaimelaprog1!");
+
+            appUser.PasswordHash = "AQAAAAEAACcQAAAAEChdqWXVxLSIzkNfmFTFoVTUAJhwa8OP90WVfn+DQDpMWMlP09uAh6q85DdXu1srAQ=="; // Jaimelaprog1!
 
             // Ajouter l'utilisateur dans la BD
             builder.Entity<ApplicationUser>().HasData(appUser);

@@ -7,5 +7,7 @@ namespace DemoMVC_Identity.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string FullName { get { return string.Join(" ", new string[] { FirstName, LastName }); } }
     }
 }
