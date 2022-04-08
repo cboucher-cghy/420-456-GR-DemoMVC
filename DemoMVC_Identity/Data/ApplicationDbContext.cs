@@ -1,6 +1,8 @@
 ﻿using DemoMVC_Identity.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DemoMVC_Identity.Data
 {
@@ -24,6 +26,19 @@ namespace DemoMVC_Identity.Data
             //{
             //    entity.ToTable(name: "Roles");
             //});
+
+            builder.Entity<IdentityRole>().HasData(new IdentityRole()
+            {
+                Id = "4ce0a981-6965-4a1e-9b36-f330ea2651f7",
+                Name = "admin",
+                NormalizedName = "admin".ToUpper(),
+                ConcurrencyStamp = "0609dc4a-a0c7-422b-98f1-a7f2fb6a23ce"
+            });
+        }
+
+        private int IdentityRole()
+        {
+            throw new NotImplementedException();
         }
 
         public DbSet<Enseignant> Enseignants { get; set; }
