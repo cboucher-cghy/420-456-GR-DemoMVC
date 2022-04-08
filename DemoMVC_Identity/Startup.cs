@@ -1,4 +1,5 @@
 using DemoMVC_Identity.Data;
+using DemoMVC_Identity.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -26,8 +27,24 @@ namespace DemoMVC_Identity
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            // Configuration sans des rôles ni utilisateurs personnalisés
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Configuration avec des sous-classes du framework Identity (ex: ApplicationUser)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Configuration avec des sous-classes de notre ApplicationUser
+            services.AddIdentityCore<Enseignant>()
+                    .AddSignInManager()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Configuration avec des sous-classes de notre ApplicationUser
+            services.AddIdentityCore<Etudiant>()
+                    .AddSignInManager()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -40,6 +57,14 @@ namespace DemoMVC_Identity
 
 
             services.AddControllersWithViews();
+
+            // Pour obliger l'utilisateur à être connecté.
+            //services.AddAuthorization(options =>
+            //{
+            //    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+            //        .RequireAuthenticatedUser()
+            //        .Build();
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
