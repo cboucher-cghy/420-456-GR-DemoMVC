@@ -47,7 +47,7 @@ namespace DemoMVC_Identity.Data
                 FirstName = "Admin",
                 LastName = "Du Site",
                 UserName = "admin@test.com",
-                NormalizedUserName = "admin".ToUpper(),
+                NormalizedUserName = "admin@test.com".ToUpper(),
                 ConcurrencyStamp = "9afea881-1d7c-462a-aa43-9cc273731673",
                 SecurityStamp = "976df4bb-c722-4219-a087-06c175e2d92e"
             };
