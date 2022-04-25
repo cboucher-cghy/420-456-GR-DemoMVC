@@ -36,7 +36,7 @@ namespace DemoMVC_Identity
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Configuration avec des sous-classes du framework Identity (ex: ApplicationUser)
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

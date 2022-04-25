@@ -40,6 +40,15 @@ namespace DemoMVC_Identity.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            //Double exemples d'extensions
+            //double prix = 12.56d;
+
+            //prix.AfficherPrix();
+
+            //Enseignant e = _userManagerEn.Users.First();
+            //e.AfficherDetails();
+
+
             return View();
         }
 
